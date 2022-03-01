@@ -1,5 +1,5 @@
 # Remote Gamepad
-**Backend**
+**Website enabling the use of a smartphone as a gamepad (Backend)**
 
 ## Dependencies
 - This project is built with [Node.js](https://nodejs.org/en/) v16 and [ws](https://github.com/websockets/ws) as the WebSocket server
