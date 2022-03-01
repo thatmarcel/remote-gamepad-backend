@@ -217,12 +217,13 @@ const handleMessage = (json, ws, socketId) => {
             const gameSession = gameSessions.map(session => session.id === gameSessionId)[0];
 
             // Inform the host about the client's input type and value
-            // (e.g. type: left stick moved, value: 0.6)
+            // (e.g. type: left stick moved, value: 0.6 (X), value2: 0.4 (Y))
             sockets[gameSession.hostSocketId].send(JSON.stringify({
                 action: actions.outgoing.inputReceived,
                 memberId: socketId,
                 inputType: json["inputType"],
-                inputValue: json["inputValue"]
+                inputValue: json["inputValue"],
+                inputValue2: json["inputValue2"]
             }));
             break;
         }
