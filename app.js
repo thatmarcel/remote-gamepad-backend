@@ -221,8 +221,8 @@ const handleMessage = (json, ws, socketId) => {
             sockets[gameSession.hostSocketId].send(JSON.stringify({
                 action: actions.outgoing.inputReceived,
                 memberId: socketId,
-                type: json["type"],
-                value: json["value"]
+                inputType: json["inputType"],
+                inputValue: json["inputValue"]
             }));
             break;
         }
