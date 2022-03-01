@@ -96,7 +96,7 @@ const handleMessage = (json, ws, socketId) => {
 
             // If the client is already a member of or trying to join
             // the game session, inform the client about the error
-            if (gameSession.memberSocketIds.includes(socketId) || gameSession.joinRequests.includes(socketId)) {
+            if (gameSession.memberSocketIds.includes(socketId) || Object.values(gameSession.joinRequests).includes(socketId)) {
                 ws.send(JSON.stringify({
                     action: actions.outgoing.gameSessionJoinRequestResult,
                     success: false,
