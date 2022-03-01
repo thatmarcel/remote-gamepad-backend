@@ -198,7 +198,7 @@ const handleMessage = (json, ws, socketId) => {
                 action: actions.outgoing.gameSessionJoinRequestResponseResult,
                 success: true,
                 joinRequestCode: joinRequestCode,
-                joinedMemberId: joinRequestSenderSocketId
+                memberId: joinRequestSenderSocketId
             }));
 
             break;
