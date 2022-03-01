@@ -266,7 +266,7 @@ wsServer.on("connection", ws => {
         delete gameSessionIdsForSocketIds[socketId];
 
         // Check if the client was a member of any game sessions
-        for (const gameSession of gameSessions) {
+        for (const gameSession of [...gameSessions]) {
             // If the client was the host of a game session
             if (gameSession.hostSocketId === socketId) {
                 // Send a notice to all members that the game session is closing
