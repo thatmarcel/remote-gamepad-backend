@@ -78,7 +78,7 @@ const handleMessage = (json, ws, socketId) => {
         case actions.incoming.joinGameSession: {
             // Check if a game session with the given identifier exists
             const gameSessionId = json["gameSessionId"];
-            const gameSessionExists = gameSessions.map(session => session.id === gameSessionId).length > 0;
+            const gameSessionExists = gameSessions.filter(session => session.id === gameSessionId).length > 0;
 
             // If the game session doesn't exist, inform
             // the client about the error
@@ -92,7 +92,9 @@ const handleMessage = (json, ws, socketId) => {
             }
 
             // Find the correct game session
-            const gameSession = gameSessions.map(session => session.id === gameSessionId)[0];
+            const gameSession = gameSessions.filter(session => session.id === gameSessionId)[0];
+
+            console.log(gameSession)
 
             // If the client is already a member of or trying to join
             // the game session, inform the client about the error
@@ -136,7 +138,7 @@ const handleMessage = (json, ws, socketId) => {
         case actions.incoming.gameSessionJoinRequestResponse: {
             // Check if a game session with the given identifier exists
             const gameSessionId = gameSessionIdsForSocketIds[socketId];
-            const gameSessionExists = gameSessions.map(session => session.id === gameSessionId).length > 0;
+            const gameSessionExists = gameSessions.filter(session => session.id === gameSessionId).length > 0;
 
             // If the game session doesn't exist, inform
             // the client about the error
@@ -150,7 +152,7 @@ const handleMessage = (json, ws, socketId) => {
             }
 
             // Find the correct game session
-            const gameSession = gameSessions.map(session => session.id === gameSessionId)[0];
+            const gameSession = gameSessions.filter(session => session.id === gameSessionId)[0];
 
             // Check if a join request with the given identifier exists
             const joinRequestCode = json["joinRequestCode"];
@@ -206,7 +208,7 @@ const handleMessage = (json, ws, socketId) => {
         case actions.incoming.doInput: {
             // Check if a game session with the given identifier exists
             const gameSessionId = gameSessionIdsForSocketIds[socketId];
-            const gameSessionExists = gameSessions.map(session => session.id === gameSessionId).length > 0;
+            const gameSessionExists = gameSessions.filter(session => session.id === gameSessionId).length > 0;
 
             // If the game session doesn't exist, fail silently
             if (!gameSessionExists) {
@@ -214,7 +216,7 @@ const handleMessage = (json, ws, socketId) => {
             }
 
             // Find the correct game session
-            const gameSession = gameSessions.map(session => session.id === gameSessionId)[0];
+            const gameSession = gameSessions.filter(session => session.id === gameSessionId)[0];
 
             // Inform the host about the client's input type and value
             // (e.g. type: left stick moved, value: 0.6 (X), value2: 0.4 (Y))
@@ -277,11 +279,11 @@ wsServer.on("connection", ws => {
                 }
 
                 // Delete the game session
-                gameSessions = gameSessions.map(session => session.id !== gameSession.id);
+                gameSessions = gameSessions.filter(session => session.id !== gameSession.id);
             } else {
                 // Remove the client from the game session's members if they
                 // were a member and check if they were a member
-                const updatedMemberList = gameSession.memberSocketIds.map(memberSocketId => memberSocketId !== socketId);
+                const updatedMemberList = gameSession.memberSocketIds.filter(memberSocketId => memberSocketId !== socketId);
                 const wasMemberOfGameSession = updatedMemberList.length !== gameSession.memberSocketIds.length;
                 gameSession.memberSocketIds = updatedMemberList;
 
