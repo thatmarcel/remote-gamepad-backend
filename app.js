@@ -135,7 +135,7 @@ const handleMessage = (json, ws, socketId) => {
         }
         case actions.incoming.gameSessionJoinRequestResponse: {
             // Check if a game session with the given identifier exists
-            const gameSessionId = json["gameSessionId"];
+            const gameSessionId = gameSessionIdsForSocketIds[socketId];
             const gameSessionExists = gameSessions.map(session => session.id === gameSessionId).length > 0;
 
             // If the game session doesn't exist, inform
@@ -205,7 +205,7 @@ const handleMessage = (json, ws, socketId) => {
         }
         case actions.incoming.doInput: {
             // Check if a game session with the given identifier exists
-            const gameSessionId = json["gameSessionId"];
+            const gameSessionId = gameSessionIdsForSocketIds[socketId];
             const gameSessionExists = gameSessions.map(session => session.id === gameSessionId).length > 0;
 
             // If the game session doesn't exist, fail silently
