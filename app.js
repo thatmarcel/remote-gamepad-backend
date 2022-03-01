@@ -91,6 +91,9 @@ const handleMessage = (json, ws, socketId) => {
                 return;
             }
 
+            // Find the correct game session
+            const gameSession = gameSessions.map(session => session.id === gameSessionId)[0];
+
             // If the client is already a member of or trying to join
             // the game session, inform the client about the error
             if (gameSession.memberSocketIds.includes(socketId) || gameSession.joinRequestingSocketIds.includes(socketId)) {
@@ -104,9 +107,6 @@ const handleMessage = (json, ws, socketId) => {
 
             // Store the game session for the socket id
             gameSessionIdsForSocketIds[socketId] = gameSessionId;
-
-            // Find the correct game session
-            const gameSession = gameSessions.map(session => session.id === gameSessionId)[0];
 
             // Generate a code for the join request
             // (can be displayed in a prompt on the host and on the client
