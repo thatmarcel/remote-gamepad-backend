@@ -94,8 +94,6 @@ const handleMessage = (json, ws, socketId) => {
             // Find the correct game session
             const gameSession = gameSessions.filter(session => session.id === gameSessionId)[0];
 
-            console.log(gameSession)
-
             // If the client is already a member of or trying to join
             // the game session, inform the client about the error
             if (gameSession.memberSocketIds.includes(socketId) || Object.values(gameSession.joinRequests).includes(socketId)) {
