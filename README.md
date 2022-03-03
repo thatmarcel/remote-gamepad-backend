@@ -9,4 +9,4 @@
 - Run `npm install` to install the required dependencies
 - Run `npm start` to start a local server
 
-Hosted on a self-hosted [CapRover](https://caprover.com/) instance
+Hosted on a [CapRover](https://caprover.com/) instance on [Hetzner Cloud](https://hetzner.com/cloud)
