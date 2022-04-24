@@ -13,7 +13,8 @@ const actions = {
         createGameSession: "create-game-session",
         joinGameSession: "join-game-session",
         gameSessionJoinRequestResponse: "game-session-join-request-response",
-        doInput: "do-input"
+        doInput: "do-input",
+        ping: "ping"
     },
     outgoing: {
         gameSessionCreationResult: "game-session-creation-result",
@@ -24,7 +25,8 @@ const actions = {
         joinRequestDenied: "join-request-denied",
         inputReceived: "input-received",
         gameSessionClosed: "game-session-closed",
-        memberDisconnected: "member-disconnected"
+        memberDisconnected: "member-disconnected",
+        pong: "pong"
     }
 };
 
@@ -227,6 +229,11 @@ const handleMessage = (json, ws, socketId) => {
             }));
             break;
         }
+        case actions.incoming.ping:
+            ws.send(JSON.stringify({
+                action: actions.outgoing.pong
+            }));
+            break;
         default:
             break;
     }
